@@ -12,7 +12,7 @@ namespace IMP.ViewModels
     {
         private readonly string _userId;
 
-        // Dodaj właściwość UserId, aby była dostępna w XAML
+        // Właściwość UserId dostępna w XAML
         public string UserId => _userId;
 
         public ICommand NavigateToSectionsControlCommand { get; }
@@ -23,7 +23,7 @@ namespace IMP.ViewModels
         {
             _userId = userId;
 
-            // Inicjalizowanie komend
+            // Inicjalizacja komend
             NavigateToSectionsControlCommand = new Command(NavigateToSectionsControl);
             NavigateToChangePasswordCommand = new Command(NavigateToChangePassword);
             DeleteAccountCommand = new Command(DeleteAccount);
@@ -34,7 +34,6 @@ namespace IMP.ViewModels
         {
             try
             {
-                // Przejście do strony sterowania sekcjami
                 await Application.Current.MainPage.Navigation.PushAsync(new SectionsPage(_userId));
             }
             catch (Exception ex)
@@ -48,7 +47,7 @@ namespace IMP.ViewModels
         {
             try
             {
-                // Przejście do strony zmiany hasła
+                // Implementacja zmiany hasła - strona do stworzenia
                 //await Application.Current.MainPage.Navigation.PushAsync(new ChangePasswordPage(_userId));
             }
             catch (Exception ex)
@@ -65,63 +64,46 @@ namespace IMP.ViewModels
                 "Czy na pewno chcesz usunąć swoje konto? Ta akcja jest nieodwracalna.",
                 "Tak", "Nie");
 
-            if (confirmDelete)
+            if (!confirmDelete) return;
+
+            try
             {
-                try
+                // Połączenie z Firebase Database
+                var firebaseClient = new FirebaseClient("https://impdb-557fa-default-rtdb.europe-west1.firebasedatabase.app");
+
+                // Sprawdź, czy użytkownik istnieje w bazie danych
+                var user = await firebaseClient
+                    .Child("users")
+                    .Child(_userId)
+                    .OnceSingleAsync<User>();
+
+                if (user == null)
                 {
-                    // 1. Uzyskaj dostęp do Firebase Realtime Database
-                    var firebaseClient = new FirebaseClient("https://impdb-557fa-default-rtdb.europe-west1.firebasedatabase.app");
-
-                    // 2. Pobierz dane użytkownika z Realtime Database na podstawie userId
-                    var user = await firebaseClient
-                        .Child("users")  // 'users' to ścieżka w bazie danych
-                        .Child(_userId)   // Używamy _userId z SettingsViewModel
-                        .OnceSingleAsync<User>();  // User to klasa odpowiadająca danym użytkownika
-
-                    if (user == null)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Błąd", "Nie znaleziono użytkownika o podanym ID.", "OK");
-                        return;
-                    }
-
-                    // Logowanie danych użytkownika
-                    Console.WriteLine($"User found: {user.Name}, {user.Email}");
-
-                    // 3. Usuwamy użytkownika z bazy danych
-                    await firebaseClient
-                        .Child("users")
-                        .Child(_userId)  // Usuń użytkownika na podstawie userId
-                        .DeleteAsync();   // Usuwanie danych użytkownika
-
-                    // 4. Usuwamy konto z Firebase Authentication
-                    var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDNtwI02aWPPvuGGK22Hm8LskD6soyIpZY"));
-                    var currentUser = await authProvider.SignInWithEmailAndPasswordAsync(user.Email, "user_password");  // Zastąp "user_password" odpowiednią metodą autoryzacji
-
-                    if (currentUser == null)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Błąd", "Nie udało się zalogować użytkownika, sprawdź dane.", "OK");
-                        return;
-                    }
-
-                    // 5. Usuwamy konto z Firebase Authentication
-                    //await authProvider.DeleteAccount(currentUser.FirebaseToken);
-
-                    // 6. Powiadomienie o sukcesie
-                    await Application.Current.MainPage.DisplayAlert("Usunięto konto", "Twoje konto zostało usunięte.", "OK");
-
-                    // 7. Przekierowanie na stronę logowania
-                    await Application.Current.MainPage.Navigation.PopToRootAsync();
+                    await Application.Current.MainPage.DisplayAlert("Błąd", "Nie znaleziono użytkownika o podanym ID.", "OK");
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    // Obsługa błędów
-                    await Application.Current.MainPage.DisplayAlert("Błąd", $"Wystąpił błąd podczas usuwania konta: {ex.Message}", "OK");
-                }
+
+                // Usuń użytkownika z Firebase Database
+                await firebaseClient
+                    .Child("users")
+                    .Child(_userId)
+                    .DeleteAsync();
+
+                // Powiadomienie o sukcesie
+                await Application.Current.MainPage.DisplayAlert("Sukces", "Konto zostało usunięte.", "OK");
+
+                // Przekierowanie do strony logowania
+                await Application.Current.MainPage.Navigation.PopToRootAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", $"Wystąpił błąd podczas usuwania konta: {ex.Message}", "OK");
             }
         }
+
     }
 
-    // Przykładowa klasa User, której używasz w bazie danych (dopasuj do swojej struktury)
+    // Klasa User dopasowana do struktury bazy danych
     public class User
     {
         public string Name { get; set; }
