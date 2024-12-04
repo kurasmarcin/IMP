@@ -67,6 +67,10 @@ namespace IMP.ViewModels
             {
                 // Logowanie użytkownika
                 var auth = await authProvider.SignInWithEmailAndPasswordAsync(UserName, UserPassword);
+                // Zapisz token w SecureStorage
+                string token = auth.FirebaseToken;
+                await SecureStorage.SetAsync("firebase_token", token);
+
 
                 UserId = auth.User.LocalId;
                 string email = auth.User.Email;

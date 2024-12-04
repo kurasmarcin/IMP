@@ -80,8 +80,8 @@ namespace IMP.ViewModels
                 // Dodaj użytkownika do Firebase Realtime Database
                 await _realtimeDatabaseService.AddUserAsync(userId, email);
 
-                // Przekierowanie do home
-                await Application.Current.MainPage.Navigation.PushAsync(new HomePage(userId));
+                // Przekierowanie do logowania
+                await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
             }
             catch (Exception ex)
             {

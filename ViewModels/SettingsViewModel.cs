@@ -57,6 +57,7 @@ namespace IMP.ViewModels
         }
 
         // Funkcja do usuwania konta
+        // Funkcja do usuwania konta
         private async void DeleteAccount()
         {
             bool confirmDelete = await Application.Current.MainPage.DisplayAlert(
@@ -83,11 +84,19 @@ namespace IMP.ViewModels
                     return;
                 }
 
-                // Usuń użytkownika z Firebase Database
+                // Usuń dane użytkownika z Firebase Database
                 await firebaseClient
                     .Child("users")
                     .Child(_userId)
                     .DeleteAsync();
+
+                // Usuń użytkownika z Firebase Authentication
+                bool authDeleted = await DeleteUserFromFirebaseAuth();
+                if (!authDeleted)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Błąd", "Nie udało się usunąć konta z Firebase Authentication.", "OK");
+                    return;
+                }
 
                 // Powiadomienie o sukcesie
                 await Application.Current.MainPage.DisplayAlert("Sukces", "Konto zostało usunięte.", "OK");
@@ -100,6 +109,50 @@ namespace IMP.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Błąd", $"Wystąpił błąd podczas usuwania konta: {ex.Message}", "OK");
             }
         }
+
+        private async Task<bool> DeleteUserFromFirebaseAuth()
+        {
+            try
+            {
+                // Pobierz token użytkownika z SecureStorage
+                var token = await SecureStorage.GetAsync("firebase_token");
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Błąd", "Brak tokena użytkownika. Zaloguj się ponownie.", "OK");
+                    return false;
+                }
+
+                // Przygotuj żądanie do Firebase REST API
+                var client = new HttpClient();
+                var request = new HttpRequestMessage
+                {
+                    Method = HttpMethod.Post,
+                    RequestUri = new Uri($"https://identitytoolkit.googleapis.com/v1/accounts:delete?key=AIzaSyDNtwI02aWPPvuGGK22Hm8LskD6soyIpZY"),
+                    Content = new StringContent($"{{\"idToken\":\"{token}\"}}", System.Text.Encoding.Default, "application/json")
+                };
+
+                var response = await client.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {error}");
+                    return false;
+                }
+
+                // Usuń token z SecureStorage
+                SecureStorage.Remove("firebase_token");
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                return false;
+            }
+        }
+
 
     }
 
