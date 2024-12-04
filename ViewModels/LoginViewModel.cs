@@ -67,10 +67,10 @@ namespace IMP.ViewModels
             {
                 // Logowanie użytkownika
                 var auth = await authProvider.SignInWithEmailAndPasswordAsync(UserName, UserPassword);
+
                 // Zapisz token w SecureStorage
                 string token = auth.FirebaseToken;
                 await SecureStorage.SetAsync("firebase_token", token);
-
 
                 UserId = auth.User.LocalId;
                 string email = auth.User.Email;
@@ -100,10 +100,14 @@ namespace IMP.ViewModels
             }
             catch (Exception ex)
             {
+                // Wyświetl komunikat o błędzie logowania
                 Console.WriteLine($"Login failed: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Błąd logowania", "Sprawdź poprawność danych.", "OK");
                 return false;
             }
         }
+
+
 
         private async void RegisterBtnTappedAsync(object obj)
         {
