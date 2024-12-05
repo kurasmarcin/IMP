@@ -3,8 +3,13 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using Microsoft.Maui.Controls;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Text.Json;
+using Microsoft.Maui.Storage;
+
+
 
 namespace IMP.ViewModels
 {
@@ -16,17 +21,19 @@ namespace IMP.ViewModels
         public string UserId => _userId;
 
         public ICommand NavigateToSectionsControlCommand { get; }
-        public ICommand NavigateToChangePasswordCommand { get; }
         public ICommand DeleteAccountCommand { get; }
+        public ICommand ChangePasswordCommand { get; }
+        public ICommand LogoutCommand { get; }
 
         public SettingsViewModel(string userId)
         {
             _userId = userId;
 
             // Inicjalizacja komend
-            NavigateToSectionsControlCommand = new Command(NavigateToSectionsControl);
-            NavigateToChangePasswordCommand = new Command(NavigateToChangePassword);
+            NavigateToSectionsControlCommand = new Command(NavigateToSectionsControl);  
             DeleteAccountCommand = new Command(DeleteAccount);
+            ChangePasswordCommand = new Command(async () => await ChangePasswordAsync());
+            LogoutCommand = new Command(async () => await LogoutAsync());
         }
 
         // Funkcja do nawigacji do strony sterowania sekcjami
@@ -56,7 +63,8 @@ namespace IMP.ViewModels
             }
         }
 
-        // Funkcja do usuwania konta
+       
+
         // Funkcja do usuwania konta
         private async void DeleteAccount()
         {
@@ -152,9 +160,91 @@ namespace IMP.ViewModels
                 return false;
             }
         }
+        public async Task ChangePasswordAsync()
+        {
+            try
+            {
+                // Pobierz token użytkownika z SecureStorage
+                var token = await SecureStorage.GetAsync("firebase_token");
+                if (string.IsNullOrEmpty(token))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Błąd", "Brak tokena użytkownika. Zaloguj się ponownie.", "OK");
+                    return;
+                }
 
+                // Wprowadź nowe hasło (możesz zastąpić nawiązaniem do formularza lub popupu)
+                string newPassword = await Application.Current.MainPage.DisplayPromptAsync(
+                    "Zmień hasło",
+                    "Podaj nowe hasło:",
+                    "OK",
+                    "Anuluj",
+                    placeholder: "Nowe hasło",
+                    maxLength: 50,
+                    keyboard: Keyboard.Text);
 
+                if (string.IsNullOrEmpty(newPassword))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Anulowano", "Zmiana hasła została anulowana.", "OK");
+                    return;
+                }
+
+                // Przygotowanie zapytania do Firebase REST API
+                var client = new HttpClient();
+                var requestBody = new
+                {
+                    idToken = token,
+                    password = newPassword,
+                    returnSecureToken = true
+                };
+
+                var jsonContent = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDNtwI02aWPPvuGGK22Hm8LskD6soyIpZY", jsonContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Wyświetlenie potwierdzenia
+                    await Application.Current.MainPage.DisplayAlert("Sukces", "Hasło zostało zmienione.", "OK");
+                }
+                else
+                {
+                    // Obsługa błędów
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error: {errorContent}");
+                    await Application.Current.MainPage.DisplayAlert("Błąd", "Nie udało się zmienić hasła. Spróbuj ponownie.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Błąd", $"Wystąpił błąd podczas zmiany hasła: {ex.Message}", "OK");
+            }
+        }
+        private async Task LogoutAsync()
+        {
+            try
+            {
+                // Usuń token z SecureStorage
+                SecureStorage.Remove("firebase_token");
+
+                // Wyświetl komunikat potwierdzający wylogowanie
+                await Application.Current.MainPage.DisplayAlert("Wylogowano", "Zostałeś pomyślnie wylogowany.", "OK");
+
+                // Przekierowanie do strony logowania
+                await Application.Current.MainPage.Navigation.PopToRootAsync(); // Powrót do strony początkowej (LoginPage)
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Logout failed: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Wystąpił problem podczas wylogowywania.", "OK");
+            }
+        }
     }
+    
+}
+
+
+
+    
 
     // Klasa User dopasowana do struktury bazy danych
     public class User
@@ -162,4 +252,4 @@ namespace IMP.ViewModels
         public string Name { get; set; }
         public string Email { get; set; }
     }
-}
+

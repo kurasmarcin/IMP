@@ -17,6 +17,8 @@ namespace IMP.ViewModels
 
         // Komenda do nawigacji do ustawień
         public ICommand NavigateToSettingsCommand { get; }
+        // Komenda do nawigacji do status
+        public ICommand NavigateToStatusCommand { get; }
 
         public HomeViewModel(INavigation navigation, string userId)
         {
@@ -28,6 +30,9 @@ namespace IMP.ViewModels
 
             // Inicjalizacja komendy dla ustawień
             NavigateToSettingsCommand = new Command(async () => await NavigateToSettings());
+
+            // Inicjalizacja komendy dla ustawień
+            NavigateToStatusCommand = new Command(async () => await NavigateToStatus());
         }
 
         private async Task NavigateToSections()
@@ -41,5 +46,10 @@ namespace IMP.ViewModels
             // Przechodzi do strony ustawień
             await _navigation.PushAsync(new SettingsPage(_userId)); // Przekazujemy userId do SettingsPage
         }
+        private async Task NavigateToStatus()
+        {
+            await _navigation.PushAsync(new StatusPage(_userId)); // Przekazujemy userId do StatusPage
+        }
     }
+    
 }

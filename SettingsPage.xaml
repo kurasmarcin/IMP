@@ -18,7 +18,7 @@
         <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center">
             <Label Text="Zmień hasło" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToChangePasswordCommand}" />
+                <TapGestureRecognizer Command="{Binding ChangePasswordCommand}" />
             </Frame.GestureRecognizers>
         </Frame>
 
@@ -29,5 +29,14 @@
                 <TapGestureRecognizer Command="{Binding DeleteAccountCommand}" />
             </Frame.GestureRecognizers>
         </Frame>
+
+        <!-- Przycisk Wyloguj -->
+        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="Wyloguj" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LogoutCommand}" />
+            </Frame.GestureRecognizers>
+        </Frame>
+
     </StackLayout>
 </ContentPage>

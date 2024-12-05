@@ -68,15 +68,24 @@
 	  <None Remove="Platforms\Android\Resources\Raw\**" />
 	</ItemGroup>
 
+
 	<ItemGroup>
 		<AndroidResource Include="Platforms\Android\google-services.json" />
 	</ItemGroup>
+
+	
 	
 	<ItemGroup>
 		<MauiAssets Include="Resources\Raw\impdb-557fa-firebase-adminsdk-7gw7l-a25e9f8bac.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<MauiXaml Update="HomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="StatusPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
@@ -110,9 +119,11 @@
 
 
 	<ItemGroup>
+		<PackageReference Include="FFImageLoading.Maui" Version="1.2.7" />
 		<PackageReference Include="Firebase.Auth" Version="1.0.0" />
 		<PackageReference Include="FirebaseAdmin" Version="3.1.0" />
 		<PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
