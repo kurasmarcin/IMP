@@ -83,10 +83,26 @@ namespace IMP.ViewModels
                 // Przekierowanie do logowania
                 await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
             }
+            catch (FirebaseAuthException firebaseEx)
+            {
+                var errorMessage = GetFriendlyErrorMessage(firebaseEx.Reason);
+                await Application.Current.MainPage.DisplayAlert("Błąd", errorMessage, "OK");
+            }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Błąd", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Wystąpił nieznany błąd. Spróbuj ponownie później.", "OK");
             }
+        }
+
+        private string GetFriendlyErrorMessage(AuthErrorReason reason)
+        {
+            return reason switch
+            {
+                AuthErrorReason.EmailExists => "Podany adres e-mail już istnieje w bazie. Użyj innego adresu.",
+                AuthErrorReason.InvalidEmailAddress => "Podany adres e-mail jest nieprawidłowy.",
+                AuthErrorReason.WeakPassword => "Podane hasło jest zbyt słabe. Użyj silniejszego hasła.",
+                _ => "Wystąpił błąd. Spróbuj ponownie później."
+            };
         }
 
         private void RaisePropertyChanged(string propertyName)
