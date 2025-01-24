@@ -1,33 +1,76 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="IMP.StatusPage"
              Title="Status">
-    <StackLayout Padding="20" Spacing="15">
-        <!-- Nagłówek -->
-        <Label Text="Pogoda" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+    <Grid>
+        <!-- Background Image -->
+        <Image Source="tlo1.jpg" Aspect="AspectFill" Opacity="1" />
 
-        <!-- Pole do wprowadzania miasta -->
-        <Entry Placeholder="Wprowadź nazwę miasta"
-               Text="{Binding CityName}"
-               FontSize="18"
-               HorizontalOptions="FillAndExpand" />
+        <!-- Content -->
+        <ScrollView>
+            <StackLayout Padding="20" Spacing="15">
+                <!-- Header -->
+                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
+                    <Label Text="Status Pogody" 
+                           FontSize="28" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" 
+                           TextColor="Black" />
+                </Frame>
 
-        <!-- Przycisk do odświeżenia danych -->
-        <Button Text="Pokaż pogodę"
-                Command="{Binding RefreshWeatherCommand}"
-                FontSize="18"
-                HorizontalOptions="Center" />
+                <!-- City Input -->
+                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
+                    <StackLayout>
+                        <Label Text="Wprowadź nazwę miasta:" 
+                               FontSize="18" 
+                               TextColor="Black" />
+                        <Entry Placeholder="Miasto" 
+                               Text="{Binding CityName}" 
+                               FontSize="18" 
+                               TextColor="Black" 
+                               PlaceholderColor="Gray" />
+                    </StackLayout>
+                </Frame>
 
-        <!-- Ikona pogodowa -->
-        <Image Source="{Binding WeatherIconUrl}" 
-               HeightRequest="100" 
-               WidthRequest="100" 
-               HorizontalOptions="Center" />
+                <!-- Weather Data -->
+                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
+                    <StackLayout>
+                        <!-- Weather Icon -->
+                        <Image Source="{Binding WeatherIconUrl}" 
+                               HeightRequest="100" 
+                               WidthRequest="100" 
+                               HorizontalOptions="Center" 
+                               Margin="10" />
 
-        <!-- Dane podstawowe -->
-        <Label Text="{Binding WeatherInfo}" FontSize="18" TextColor="Gray" HorizontalOptions="Center" />
+                        <!-- Main Weather Info -->
+                        <Label Text="{Binding WeatherInfo}" 
+                               FontSize="20" 
+                               FontAttributes="Bold" 
+                               TextColor="Black" 
+                               HorizontalOptions="Center" 
+                               Margin="5" />
 
-        <!-- Szczegółowe dane -->
-        <Label Text="{Binding DetailedWeatherInfo}" FontSize="16" TextColor="Gray" HorizontalOptions="Center" />
-    </StackLayout>
+                        <!-- Detailed Weather Info -->
+                        <Label Text="{Binding DetailedWeatherInfo}" 
+                               FontSize="16" 
+                               TextColor="Black" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Frame>
+
+                <!-- Refresh Button -->
+                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
+                    <Button Text="Odśwież dane" 
+                            Command="{Binding RefreshWeatherCommand}" 
+                            BackgroundColor="#007ACC" 
+                            TextColor="White" 
+                            CornerRadius="15" 
+                            HorizontalOptions="Center" 
+                            WidthRequest="200" />
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

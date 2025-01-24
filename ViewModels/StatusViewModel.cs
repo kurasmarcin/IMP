@@ -69,7 +69,8 @@ namespace IMP.ViewModels
             try
             {
                 var weather = await _weatherService.GetWeatherAsync(CityName);
-                WeatherInfo = $"Temperatura: {weather.Main.Temperature}°C, Opis: {weather.Weather[0].Description}";
+                WeatherInfo = $"Temperatura: {weather.Main.Temperature}°C, Opis: {TranslateWeatherDescription(weather.Weather[0].Description)}";
+
 
                 DetailedWeatherInfo =
                     $"Wilgotność: {weather.Main.Humidity}%\n" +
@@ -86,6 +87,25 @@ namespace IMP.ViewModels
                 WeatherInfo = "Błąd w pobieraniu danych pogodowych";
                 DetailedWeatherInfo = $"Błąd: {ex.Message}";
             }
+        }
+        private string TranslateWeatherDescription(string englishDescription)
+        {
+            var translations = new Dictionary<string, string>
+            {
+                { "clear sky", "bezchmurne niebo" },
+                { "few clouds", "małe zachmurzenie" },
+                { "scattered clouds", "rozproszone chmury" },
+                { "broken clouds", "pochmurno" },
+                { "shower rain", "przelotny deszcz" },
+                { "rain", "deszcz" },
+                { "thunderstorm", "burza" },
+                { "snow", "śnieg" },
+                { "mist", "mgła" }
+            };
+
+            return translations.ContainsKey(englishDescription)
+                ? translations[englishDescription]
+                : englishDescription; // Jeśli brak tłumaczenia, zwracamy oryginał
         }
     }
 }

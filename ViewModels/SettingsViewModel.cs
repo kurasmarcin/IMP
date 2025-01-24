@@ -41,7 +41,7 @@ namespace IMP.ViewModels
         {
             try
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new SectionsPage(_userId));
+                await Application.Current.MainPage.Navigation.PushAsync(new ManualControlPage(_userId));
             }
             catch (Exception ex)
             {

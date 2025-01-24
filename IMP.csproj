@@ -68,19 +68,20 @@
 	  <None Remove="Platforms\Android\Resources\Raw\**" />
 	</ItemGroup>
 
-
-	<ItemGroup>
-		<AndroidResource Include="Platforms\Android\google-services.json" />
-	</ItemGroup>
-
 	
 	
 	<ItemGroup>
 		<MauiAssets Include="Resources\Raw\impdb-557fa-firebase-adminsdk-7gw7l-a25e9f8bac.json" />
 	</ItemGroup>
 	<ItemGroup>
+		<MauiXaml Update="HistoryPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="HomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="ManualControlPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 
