@@ -5,116 +5,171 @@
              BackgroundImageSource="tlo1.jpg"
              Title="Sekcje">
     <ScrollView>
-        <StackLayout Padding="20" Spacing="10">
+        <StackLayout Padding="20" Spacing="20">
             <!-- Nagłówek -->
-            <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center">
+            <Frame BackgroundColor="White" Padding="15" CornerRadius="25" Opacity="0.9" HorizontalOptions="Center" Margin="10">
                 <Label Text="Dodaj nową sekcję" 
-                       FontSize="18" 
+                       FontSize="20" 
                        FontAttributes="Bold" 
                        HorizontalOptions="Center" 
                        TextColor="Black" />
             </Frame>
 
             <!-- Wybór rury -->
-            <Picker Title="Wybierz rurę" 
-                    ItemsSource="{Binding AvailablePipes}" 
-                    SelectedItem="{Binding SelectedPipe}" />
+            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+                <Picker Title="Wybierz rurę" 
+                        ItemsSource="{Binding AvailablePipes}" 
+                        SelectedItem="{Binding SelectedPipe}" 
+                        FontSize="16" />
+            </Frame>
 
             <!-- Pola do dodawania sekcji -->
-            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10">
-                <Entry Placeholder="Nazwa sekcji" Text="{Binding SectionName}" />
+            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+                <Entry Placeholder="Nazwa sekcji" 
+                       Text="{Binding SectionName}" 
+                       FontSize="16" 
+                       TextColor="Black" 
+                       PlaceholderColor="Gray" />
             </Frame>
-            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10">
-                <Entry Placeholder="Czas rozpoczęcia (HH:mm)" Text="{Binding StartTime}" Keyboard="Numeric" />
+            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+                <Entry Placeholder="Czas rozpoczęcia (HH:mm)" 
+                       Text="{Binding StartTime}" 
+                       FontSize="16" 
+                       Keyboard="Numeric" 
+                       TextColor="Black" 
+                       PlaceholderColor="Gray" />
             </Frame>
-            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10">
-                <Entry Placeholder="Czas trwania (minuty)" Text="{Binding Duration}" Keyboard="Numeric" />
+            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+                <Entry Placeholder="Czas trwania (minuty)" 
+                       Text="{Binding Duration}" 
+                       FontSize="16" 
+                       Keyboard="Numeric" 
+                       TextColor="Black" 
+                       PlaceholderColor="Gray" />
             </Frame>
 
             <!-- Wybór dni tygodnia -->
-            <Label Text="Wybierz dni tygodnia:" FontSize="Small" HorizontalOptions="Center" />
-            <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                <Button Text="Pn" Command="{Binding ToggleDayCommand}" CommandParameter="pn" BackgroundColor="{Binding DayColors[pn]}" Grid.Column="0" />
-                <Button Text="Wt" Command="{Binding ToggleDayCommand}" CommandParameter="wt" BackgroundColor="{Binding DayColors[wt]}" Grid.Column="1" />
-                <Button Text="Śr" Command="{Binding ToggleDayCommand}" CommandParameter="śr" BackgroundColor="{Binding DayColors[śr]}" Grid.Column="2" />
-                <Button Text="Cz" Command="{Binding ToggleDayCommand}" CommandParameter="cz" BackgroundColor="{Binding DayColors[cz]}" Grid.Column="3" />
-                <Button Text="Pt" Command="{Binding ToggleDayCommand}" CommandParameter="pt" BackgroundColor="{Binding DayColors[pt]}" Grid.Column="4" />
-                <Button Text="Sb" Command="{Binding ToggleDayCommand}" CommandParameter="sb" BackgroundColor="{Binding DayColors[sb]}" Grid.Column="5" />
-                <Button Text="Nd" Command="{Binding ToggleDayCommand}" CommandParameter="nd" BackgroundColor="{Binding DayColors[nd]}" Grid.Column="6" />
-            </Grid>
+            <Frame BackgroundColor="#F0F0F0" CornerRadius="15" Padding="10" Margin="5">
+                <Label Text="Wybierz dni tygodnia:" FontSize="16" TextColor="Black" HorizontalOptions="Center" />
+                <Grid ColumnDefinitions="*,*,*,*,*,*,*" RowDefinitions="Auto" Padding="5" ColumnSpacing="10">
+                    <Button Grid.Column="0" Text="Pn" Command="{Binding ToggleDayCommand}" CommandParameter="pn"
+                BackgroundColor="{Binding DayColors[pn]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                    <Button Grid.Column="1" Text="Wt" Command="{Binding ToggleDayCommand}" CommandParameter="wt"
+                BackgroundColor="{Binding DayColors[wt]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                    <Button Grid.Column="2" Text="Śr" Command="{Binding ToggleDayCommand}" CommandParameter="śr"
+                BackgroundColor="{Binding DayColors[śr]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                    <Button Grid.Column="3" Text="Cz" Command="{Binding ToggleDayCommand}" CommandParameter="cz"
+                BackgroundColor="{Binding DayColors[cz]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                    <Button Grid.Column="4" Text="Pt" Command="{Binding ToggleDayCommand}" CommandParameter="pt"
+                BackgroundColor="{Binding DayColors[pt]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                    <Button Grid.Column="5" Text="Sb" Command="{Binding ToggleDayCommand}" CommandParameter="sb"
+                BackgroundColor="{Binding DayColors[sb]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                    <Button Grid.Column="6" Text="Nd" Command="{Binding ToggleDayCommand}" CommandParameter="nd"
+                BackgroundColor="{Binding DayColors[nd]}" 
+                TextColor="Black" 
+                CornerRadius="5" 
+                HeightRequest="40" 
+                FontAttributes="Bold" />
+                </Grid>
+            </Frame>
+
+
 
             <!-- Przycisk dodawania sekcji -->
-            <Button Text="Dodaj sekcję" Command="{Binding AddSectionCommand}" BackgroundColor="#4CAF50" TextColor="White" />
+            <Button Text="Dodaj sekcję" 
+                    Command="{Binding AddSectionCommand}" 
+                    BackgroundColor="#4CAF50" 
+                    TextColor="White" 
+                    CornerRadius="15" 
+                    HeightRequest="50" 
+                    FontSize="18" 
+                    HorizontalOptions="Fill" />
 
             <!-- Lista sekcji -->
-            <Label Text="Twoje sekcje" FontSize="18" HorizontalOptions="Center" />
-            <CollectionView ItemsSource="{Binding Sections}">
+            <Label Text="Twoje sekcje" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
+            <CollectionView ItemsSource="{Binding Sections}" Margin="10">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#B3FFFFFF" Padding="10" CornerRadius="15">
+                        <Frame BackgroundColor="#FFFFFF" Padding="10" CornerRadius="15" Margin="5">
                             <StackLayout Orientation="Horizontal" Spacing="10">
                                 <!-- Informacje o sekcji -->
                                 <StackLayout Spacing="5" VerticalOptions="CenterAndExpand">
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" />
-                                    <Label Text="{Binding StartTime, StringFormat='Czas rozpoczęcia: {0}'}" />
-                                    <Label Text="{Binding Duration, StringFormat='Czas trwania: {0} min'}" />
-                                    <Label Text="{Binding SelectedDays, StringFormat='Dni: {0}'}" />
-                                    <Label Text="{Binding WateringType, StringFormat='Rodzaj rury: {0}'}" />
-                                    <Label Text="{Binding ElapsedTime, StringFormat='Czas: {0} sek'}" 
-           FontSize="Small" 
-           TextColor="Gray" />
-                                </StackLayout>
-                                <!-- Guziki Edytuj, Usuń i Stop -->
-                                <StackLayout Orientation="Horizontal" Spacing="5" VerticalOptions="Center">
-                                    <Button Text="Edytuj" 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SectionsViewModel}}, Path=EditSectionCommand}" 
-                                            CommandParameter="{Binding Id}" 
-                                            BackgroundColor="Blue" 
-                                            TextColor="White" 
-                                            WidthRequest="80" 
-                                            HeightRequest="40" />
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="Black" />
+                                    <Label Text="{Binding StartTime, StringFormat='Czas rozpoczęcia: {0}'}" FontSize="14" TextColor="Gray" />
+                                    <Label Text="{Binding Duration, StringFormat='Czas trwania: {0} min'}" FontSize="14" TextColor="Gray" />
+                                    <Label Text="{Binding SelectedDays, StringFormat='Dni: {0}'}" FontSize="14" TextColor="Gray" />
 
-                                    <Button Text="Usuń" 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SectionsViewModel}}, Path=DeleteSectionCommand}" 
-                                            CommandParameter="{Binding Id}" 
-                                            BackgroundColor="Red" 
-                                            TextColor="White" 
-                                            WidthRequest="80" 
-                                            HeightRequest="40" />
-
-                                    <Button Text="Stop" 
-        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SectionsViewModel}}, Path=StopSectionCommand}" 
-        CommandParameter="{Binding Id}" 
-        BackgroundColor="Red" 
-        TextColor="White" />
+                                    <!-- Zużycie wody -->
                                     <StackLayout Orientation="Vertical" Spacing="5">
-                                        <!-- Pierwszy wiersz: Bieżące zużycie -->
-                                        <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Center">
-                                            <Label Text="{Binding CurrentWaterUsage, StringFormat='Bieżące zużycie: {0:F2} L'}"
-               FontSize="12"
-               TextColor="Black" />
-                                            <Label Text="{Binding CurrentWaterUsageCubicMeters, StringFormat='Bieżące zużycie: {0:F3} m³'}"
-               FontSize="12"
-               TextColor="Black" />
-                                        </StackLayout>
-
-                                        <!-- Drugi wiersz: Całkowite zużycie -->
-                                        <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Center">
-                                            <Label Text="{Binding TotalWaterUsageLiters, StringFormat='Całkowite zużycie: {0:F2} L'}"
-               FontSize="12"
-               TextColor="Black" />
-                                            <Label Text="{Binding TotalWaterUsageCubicMeters, StringFormat='Całkowite zużycie: {0:F3} m³'}"
-               FontSize="12"
-               TextColor="Black" />
-                                        </StackLayout>
+                                        <Label Text="{Binding CurrentWaterUsage, StringFormat='Bieżące zużycie: {0:F2} L'}" 
+                                   FontSize="14" 
+                                   TextColor="Blue" />
+                                        <Label Text="{Binding CurrentWaterUsageCubicMeters, StringFormat='Bieżące zużycie: {0:F3} m³'}" 
+                                   FontSize="14" 
+                                   TextColor="Blue" />
+                                        <Label Text="{Binding TotalWaterUsageLiters, StringFormat='Całkowite zużycie: {0:F2} L'}" 
+                                   FontSize="14" 
+                                   TextColor="DarkGreen" />
+                                        <Label Text="{Binding TotalWaterUsageCubicMeters, StringFormat='Całkowite zużycie: {0:F3} m³'}" 
+                                   FontSize="14" 
+                                   TextColor="DarkGreen" />
                                     </StackLayout>
+                                </StackLayout>
 
+                                <!-- Guziki Edytuj, Usuń i Stop -->
+                                <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Center">
+                                    <Button Text="Edytuj" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SectionsViewModel}}, Path=EditSectionCommand}" 
+                                CommandParameter="{Binding Id}" 
+                                BackgroundColor="Blue" 
+                                TextColor="White" 
+                                CornerRadius="10" 
+                                WidthRequest="80" />
+                                    <Button Text="Usuń" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SectionsViewModel}}, Path=DeleteSectionCommand}" 
+                                CommandParameter="{Binding Id}" 
+                                BackgroundColor="Red" 
+                                TextColor="White" 
+                                CornerRadius="10" 
+                                WidthRequest="80" />
+                                    <Button Text="Stop" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:SectionsViewModel}}, Path=StopSectionCommand}" 
+                                CommandParameter="{Binding Id}" 
+                                BackgroundColor="Orange" 
+                                TextColor="White" 
+                                CornerRadius="10" 
+                                WidthRequest="80" />
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
         </StackLayout>
     </ScrollView>
 </ContentPage>
