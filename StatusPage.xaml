@@ -1,76 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="IMP.StatusPage"
-             Title="Status">
-    <Grid>
-        <!-- Background Image -->
-        <Image Source="tlo1.jpg" Aspect="AspectFill" Opacity="1" />
+             x:Class="IMP.StatusPage">
+<Grid>
+    <!-- Background Image -->
+    <Image Source="tlo1.jpg" Aspect="AspectFill" Opacity="1" />
 
-        <!-- Content -->
-        <ScrollView>
-            <StackLayout Padding="20" Spacing="15">
-                <!-- Header -->
-                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
-                    <Label Text="Status Pogody" 
+    <!-- Content -->
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="0" Margin="0,50,0,0">
+            <!-- Header -->
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10" BorderColor="Transparent" WidthRequest="440" 
+HeightRequest="100">
+                <Label Text="Aktualna pogoda" 
                            FontSize="28" 
                            FontAttributes="Bold" 
                            HorizontalOptions="Center" 
                            VerticalOptions="Center" 
                            TextColor="Black" />
-                </Frame>
+            </Frame>
 
-                <!-- City Input -->
-                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
-                    <StackLayout>
-                        <Label Text="Wprowadź nazwę miasta:" 
+            <!-- City Input -->
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10" BorderColor="Transparent" WidthRequest="440" 
+HeightRequest="100">
+                <StackLayout>
+                    <Label Text="Wprowadź nazwę miasta:" 
                                FontSize="18" 
                                TextColor="Black" />
-                        <Entry Placeholder="Miasto" 
+                    <Entry Placeholder="Miasto" 
                                Text="{Binding CityName}" 
                                FontSize="18" 
                                TextColor="Black" 
                                PlaceholderColor="Gray" />
-                    </StackLayout>
-                </Frame>
+                </StackLayout>
+            </Frame>
 
-                <!-- Weather Data -->
-                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
-                    <StackLayout>
-                        <!-- Weather Icon -->
-                        <Image Source="{Binding WeatherIconUrl}" 
+            <!-- Weather Data -->
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10" BorderColor="Transparent" WidthRequest="440" 
+HeightRequest="350">
+                <StackLayout>
+                    <!-- Weather Icon -->
+                    <Image Source="{Binding WeatherIconUrl}" 
                                HeightRequest="100" 
                                WidthRequest="100" 
                                HorizontalOptions="Center" 
                                Margin="10" />
 
-                        <!-- Main Weather Info -->
-                        <Label Text="{Binding WeatherInfo}" 
+                    <!-- Main Weather Info -->
+                    <Label Text="{Binding WeatherInfo}" 
                                FontSize="20" 
                                FontAttributes="Bold" 
                                TextColor="Black" 
                                HorizontalOptions="Center" 
                                Margin="5" />
 
-                        <!-- Detailed Weather Info -->
-                        <Label Text="{Binding DetailedWeatherInfo}" 
+                    <!-- Detailed Weather Info -->
+                    <Label Text="{Binding DetailedWeatherInfo}" 
                                FontSize="16" 
                                TextColor="Black" 
                                HorizontalOptions="Center" />
-                    </StackLayout>
-                </Frame>
+                </StackLayout>
+            </Frame>
 
-                <!-- Refresh Button -->
-                <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="10">
-                    <Button Text="Odśwież dane" 
+            <!-- Refresh Button -->
+            <Frame BackgroundColor="Transparent" CornerRadius="15" Padding="10" Margin="10" BorderColor="Transparent">
+                <Button Text="Odśwież dane" 
                             Command="{Binding RefreshWeatherCommand}" 
                             BackgroundColor="#007ACC" 
                             TextColor="White" 
                             CornerRadius="15" 
                             HorizontalOptions="Center" 
-                            WidthRequest="200" />
-                </Frame>
-            </StackLayout>
-        </ScrollView>
-    </Grid>
+                            WidthRequest="320" 
+                            HeightRequest="80"/>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+</Grid>
+
 </ContentPage>

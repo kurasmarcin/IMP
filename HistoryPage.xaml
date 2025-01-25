@@ -4,26 +4,30 @@
              x:Class="IMP.HistoryPage"
              x:Name="Page"
              BackgroundImageSource="tlo1.jpg"
-             Title="Historia Nawadniania">
+>
     <ScrollView>
-        <StackLayout Padding="20" Spacing="20">
+        <StackLayout Padding="20" Spacing="20" Margin="0,50,0,0" >
             <!-- Historia Nawadniania -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0">
+                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0" BorderColor="Transparent" WidthRequest="440" 
+HeightRequest="100">
                         <Label Text="Historia Nawadniania"
                                FontSize="20"
                                FontAttributes="Bold"
                                HorizontalOptions="Center"
-                               TextColor="Black" />
+                               VerticalOptions="Center" 
+                               TextColor="Black"/>
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
-                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0">
+                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0" BorderColor="Transparent" WidthRequest="600" 
+HeightRequest="500">
                         <CollectionView ItemsSource="{Binding ScheduledHistory}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame BackgroundColor="#F0F0F0" CornerRadius="10" Padding="10" Margin="5">
+                                    <Frame BackgroundColor="#F0F0F0" CornerRadius="10" Padding="10" Margin="5" BorderColor="Transparent" WidthRequest="600" 
+HeightRequest="150">
                                         <StackLayout Spacing="5">
                                             <Label Text="{Binding Date}" FontSize="14" TextColor="Black" />
                                             <Label Text="{Binding SectionName}" FontSize="16" FontAttributes="Bold" TextColor="Black" />
@@ -42,20 +46,23 @@
             <!-- Historia Manualna -->
             <toolkit:Expander>
                 <toolkit:Expander.Header>
-                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0">
+                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0" BorderColor="Transparent" WidthRequest="440" 
+HeightRequest="100">
                         <Label Text="Historia Manualna"
                                FontSize="20"
                                FontAttributes="Bold"
                                HorizontalOptions="Center"
+                               VerticalOptions="Center" 
                                TextColor="Black" />
                     </Frame>
                 </toolkit:Expander.Header>
                 <toolkit:Expander.Content>
-                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0">
+                    <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="0" BorderColor="Transparent" WidthRequest="600" 
+HeightRequest="500">
                         <CollectionView ItemsSource="{Binding ManualHistory}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame BackgroundColor="#F0F0F0" CornerRadius="10" Padding="10" Margin="5">
+                                    <Frame BackgroundColor="#F0F0F0" CornerRadius="10" Padding="10" Margin="5" BorderColor="Transparent">
                                         <StackLayout Spacing="5">
                                             <Label Text="{Binding Date}" FontSize="14" TextColor="Black" />
                                             <Label Text="{Binding SectionName}" FontSize="16" FontAttributes="Bold" TextColor="Black" />

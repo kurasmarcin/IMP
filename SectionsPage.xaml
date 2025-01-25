@@ -4,35 +4,43 @@
              xmlns:behaviors="clr-namespace:IMP.Behaviors"
              x:Class="IMP.SectionsPage"
              BackgroundImageSource="tlo1.jpg"
-             Title="Sekcje">
+             >
     <ScrollView>
-        <StackLayout Padding="20" Spacing="20">
+        <StackLayout Padding="20" Spacing="0">
             <!-- Nagłówek -->
-            <Frame BackgroundColor="White" Padding="15" CornerRadius="25" Opacity="0.9" HorizontalOptions="Center" Margin="10">
-                <Label Text="Dodaj nową sekcję" 
-                       FontSize="20" 
+            <Frame BackgroundColor="#B3FFFFFF" Padding="15" CornerRadius="25" Opacity="0.9" HorizontalOptions="Center" Margin="10" WidthRequest="450"
+               HeightRequest="100" BorderColor="Transparent" >
+                <Label Text="Twoje sekcje " 
+                       FontSize="30" 
                        FontAttributes="Bold" 
                        HorizontalOptions="Center" 
+                       VerticalOptions="Center"
                        TextColor="Black" />
             </Frame>
 
             <!-- Wybór rury -->
-            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
-                <Picker Title="Wybierz rurę" 
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="5" WidthRequest="450"
+               HeightRequest="80"  BorderColor="Transparent" >
+                <Picker Title="Wybierz śrenicę rury" 
                         ItemsSource="{Binding AvailablePipes}" 
                         SelectedItem="{Binding SelectedPipe}" 
-                        FontSize="16" />
+                        TextColor="Black" 
+                        FontSize="16"
+                        TitleColor="Grey" 
+                        />
             </Frame>
 
             <!-- Pola do dodawania sekcji -->
-            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="5" WidthRequest="450"
+               HeightRequest="80" BorderColor="Transparent">
                 <Entry Placeholder="Nazwa sekcji" 
                        Text="{Binding SectionName}" 
                        FontSize="16" 
                        TextColor="Black" 
                        PlaceholderColor="Gray" />
             </Frame>
-            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="5" WidthRequest="450"
+               HeightRequest="80" BorderColor="Transparent" >
                 <Entry Placeholder="Czas rozpoczęcia (HH:mm)" 
                     Text="{Binding StartTime}" 
                     FontSize="16" 
@@ -45,7 +53,8 @@
                 </Entry>
 
             </Frame>
-            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="5" WidthRequest="450"
+               HeightRequest="80" BorderColor="Transparent">
                 <Entry Placeholder="Czas trwania (minuty)" 
                        Text="{Binding Duration}" 
                        FontSize="16" 
@@ -56,9 +65,10 @@
 
             <!-- Wybór dni tygodnia -->
 
-            <Frame BackgroundColor="#F0F0F0" CornerRadius="15" Padding="10" Margin="5">
+            <Frame BackgroundColor="#B3FFFFFF" CornerRadius="15" Padding="10" Margin="5" WidthRequest="450"
+               HeightRequest="100" BorderColor="Transparent" >
                 <StackLayout>
-                    <Label Text="Wybierz dni tygodnia:" FontSize="16" TextColor="Black" HorizontalOptions="Start" />
+                    <Label Text="Wybierz dni tygodnia:" FontSize="16" TextColor="Grey" HorizontalOptions="Start" />
                     <Grid ColumnDefinitions="*,*,*,*,*,*,*" Padding="5" ColumnSpacing="10">
                         <Button Grid.Column="0" Text="Pn" Command="{Binding ToggleDayCommand}" CommandParameter="pn"
                     BackgroundColor="{Binding DayColors[pn]}" 
@@ -112,19 +122,21 @@
             <!-- Przycisk dodawania sekcji -->
             <Button Text="Dodaj sekcję" 
                     Command="{Binding AddSectionCommand}" 
-                    BackgroundColor="#4CAF50" 
+                    BackgroundColor="#007ACC"
+                    
                     TextColor="White" 
                     CornerRadius="15" 
-                    HeightRequest="50" 
                     FontSize="18" 
-                    HorizontalOptions="Fill" />
+                    HorizontalOptions="Fill"  WidthRequest="450"
+               HeightRequest="80"/>
 
             <!-- Lista sekcji -->
-            <Label Text="Twoje sekcje" FontSize="18" FontAttributes="Bold" HorizontalOptions="Center" />
-            <CollectionView ItemsSource="{Binding Sections}" Margin="10">
+
+            <CollectionView ItemsSource="{Binding Sections}" Margin="10" WidthRequest="800"
+               HeightRequest="600" >
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BackgroundColor="#FFFFFF" Padding="10" CornerRadius="15" Margin="5">
+                        <Frame BackgroundColor="#B3FFFFFF" Padding="10" CornerRadius="15" Margin="5" BorderColor="Transparent" >
                             <StackLayout Orientation="Horizontal" Spacing="10">
                                 <!-- Informacje o sekcji -->
                                 <StackLayout Spacing="5" VerticalOptions="CenterAndExpand">

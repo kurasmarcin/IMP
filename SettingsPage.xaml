@@ -2,37 +2,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:IMP.ViewModels"
              x:Class="IMP.SettingsPage"
-             BackgroundImageSource="tlo1.jpg"
-             Title="Ustawienia">
+             BackgroundImageSource="tlo1.jpg">
 
-    <StackLayout Padding="20">
+    <StackLayout Padding="20"
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand"
+                 Spacing="20">
         <!-- Ręczne sterowanie sekcjami -->
-        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center">
-            <Label Text="Ręczne sterowanie sekcjami" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
+        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center" WidthRequest="450"
+               HeightRequest="150"  BorderColor="Transparent">
+            <Label Text="Ręczne sterowanie sekcjami" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToSectionsControlCommand}" />
             </Frame.GestureRecognizers>
         </Frame>
 
         <!-- Zmiana hasła -->
-        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center">
-            <Label Text="Zmień hasło" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
+        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center" WidthRequest="450"
+               HeightRequest="150"  BorderColor="Transparent">
+            <Label Text="Zmień hasło" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding ChangePasswordCommand}" />
             </Frame.GestureRecognizers>
         </Frame>
 
         <!-- Usunięcie konta -->
-        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center">
-            <Label Text="Usuń konto" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
+        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center" WidthRequest="450"
+               HeightRequest="150"  BorderColor="Transparent">
+            <Label Text="Usuń konto" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DeleteAccountCommand}" />
             </Frame.GestureRecognizers>
         </Frame>
 
         <!-- Przycisk Wyloguj -->
-        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center" VerticalOptions="Center">
-            <Label Text="Wyloguj" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
+        <Frame BackgroundColor="WhiteSmoke" Padding="20" CornerRadius="25" Opacity="0.8" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="450"
+               HeightRequest="150"  BorderColor="Transparent">
+            <Label Text="Wyloguj" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding LogoutCommand}" />
             </Frame.GestureRecognizers>
