@@ -256,27 +256,11 @@ namespace IMP.ViewModels
             var section = Sections.FirstOrDefault(s => s.Id == sectionId);
             if (section == null) return;
 
-            // Obliczenie rzeczywistego czasu trwania sekcji w sekundach
-            int actualElapsedTime = section.ElapsedTime > 0 ? section.ElapsedTime : 1; // Upewnij się, że jest przynajmniej 1 sekunda
-
             // Zatrzymanie sekcji
             section.Status = "stop";
 
-            // Oblicz całkowite zużycie na podstawie rzeczywistego czasu działania
-            section.TotalWaterUsageLiters = CalculateWaterUsageLiters(section.WateringType, actualElapsedTime);
-            section.TotalWaterUsageCubicMeters = section.TotalWaterUsageLiters / 1000;
-
-            // Zapis do Firebase
+            // Wyślij status stop do Firebase (backend zajmie się zapisem historii)
             await _firebaseService.SaveSectionAsync(_userId, section);
-            await _firebaseService.UpdateTotalWaterUsageAsync(_userId, section.Id, section.TotalWaterUsageLiters);
-            await _firebaseService.AddScheduledHistoryAsync(_userId, new ScheduledHistoryEntry
-            {
-                Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                SectionName = section.Name,
-                Duration = actualElapsedTime, // Zapisanie rzeczywistego czasu trwania
-                WaterUsageLiters = section.TotalWaterUsageLiters,
-                WaterUsageCubicMeters = section.TotalWaterUsageCubicMeters
-            });
 
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -287,6 +271,7 @@ namespace IMP.ViewModels
                 }
             });
         }
+
 
 
 

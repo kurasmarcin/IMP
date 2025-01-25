@@ -49,53 +49,57 @@
             </Frame>
 
             <!-- Wybór dni tygodnia -->
+
             <Frame BackgroundColor="#F0F0F0" CornerRadius="15" Padding="10" Margin="5">
-                <Label Text="Wybierz dni tygodnia:" FontSize="16" TextColor="Black" HorizontalOptions="Center" />
-                <Grid ColumnDefinitions="*,*,*,*,*,*,*" RowDefinitions="Auto" Padding="5" ColumnSpacing="10">
-                    <Button Grid.Column="0" Text="Pn" Command="{Binding ToggleDayCommand}" CommandParameter="pn"
-                BackgroundColor="{Binding DayColors[pn]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                    <Button Grid.Column="1" Text="Wt" Command="{Binding ToggleDayCommand}" CommandParameter="wt"
-                BackgroundColor="{Binding DayColors[wt]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                    <Button Grid.Column="2" Text="Śr" Command="{Binding ToggleDayCommand}" CommandParameter="śr"
-                BackgroundColor="{Binding DayColors[śr]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                    <Button Grid.Column="3" Text="Cz" Command="{Binding ToggleDayCommand}" CommandParameter="cz"
-                BackgroundColor="{Binding DayColors[cz]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                    <Button Grid.Column="4" Text="Pt" Command="{Binding ToggleDayCommand}" CommandParameter="pt"
-                BackgroundColor="{Binding DayColors[pt]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                    <Button Grid.Column="5" Text="Sb" Command="{Binding ToggleDayCommand}" CommandParameter="sb"
-                BackgroundColor="{Binding DayColors[sb]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                    <Button Grid.Column="6" Text="Nd" Command="{Binding ToggleDayCommand}" CommandParameter="nd"
-                BackgroundColor="{Binding DayColors[nd]}" 
-                TextColor="Black" 
-                CornerRadius="5" 
-                HeightRequest="40" 
-                FontAttributes="Bold" />
-                </Grid>
+                <StackLayout>
+                    <Label Text="Wybierz dni tygodnia:" FontSize="16" TextColor="Black" HorizontalOptions="Start" />
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*" Padding="5" ColumnSpacing="10">
+                        <Button Grid.Column="0" Text="Pn" Command="{Binding ToggleDayCommand}" CommandParameter="pn"
+                    BackgroundColor="{Binding DayColors[pn]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                        <Button Grid.Column="1" Text="Wt" Command="{Binding ToggleDayCommand}" CommandParameter="wt"
+                    BackgroundColor="{Binding DayColors[wt]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                        <Button Grid.Column="2" Text="Śr" Command="{Binding ToggleDayCommand}" CommandParameter="śr"
+                    BackgroundColor="{Binding DayColors[śr]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                        <Button Grid.Column="3" Text="Cz" Command="{Binding ToggleDayCommand}" CommandParameter="cz"
+                    BackgroundColor="{Binding DayColors[cz]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                        <Button Grid.Column="4" Text="Pt" Command="{Binding ToggleDayCommand}" CommandParameter="pt"
+                    BackgroundColor="{Binding DayColors[pt]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                        <Button Grid.Column="5" Text="Sb" Command="{Binding ToggleDayCommand}" CommandParameter="sb"
+                    BackgroundColor="{Binding DayColors[sb]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                        <Button Grid.Column="6" Text="Nd" Command="{Binding ToggleDayCommand}" CommandParameter="nd"
+                    BackgroundColor="{Binding DayColors[nd]}" 
+                    TextColor="Black" 
+                    CornerRadius="5" 
+                    HeightRequest="40" 
+                    FontAttributes="Bold" />
+                    </Grid>
+                </StackLayout>
             </Frame>
+
 
 
 

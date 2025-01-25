@@ -1,6 +1,8 @@
 ﻿using Firebase.Database;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
+
 
 namespace IMP;
 
@@ -12,6 +14,7 @@ public static class MauiProgram
 
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -34,6 +37,7 @@ public static class MauiProgram
 #endif
 
         return builder.Build();
+        
     }
     
 
