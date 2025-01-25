@@ -1,6 +1,7 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:IMP.ViewModels"
+             xmlns:behaviors="clr-namespace:IMP.Behaviors"
              x:Class="IMP.SectionsPage"
              BackgroundImageSource="tlo1.jpg"
              Title="Sekcje">
@@ -33,11 +34,16 @@
             </Frame>
             <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
                 <Entry Placeholder="Czas rozpoczęcia (HH:mm)" 
-                       Text="{Binding StartTime}" 
-                       FontSize="16" 
-                       Keyboard="Numeric" 
-                       TextColor="Black" 
-                       PlaceholderColor="Gray" />
+                    Text="{Binding StartTime}" 
+                    FontSize="16" 
+                    Keyboard="Numeric" 
+                    TextColor="Black" 
+                    PlaceholderColor="Gray">
+                    <Entry.Behaviors>
+                        <behaviors:TimeValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+
             </Frame>
             <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="10" Margin="5">
                 <Entry Placeholder="Czas trwania (minuty)" 

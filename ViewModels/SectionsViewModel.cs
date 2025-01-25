@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Input;
@@ -82,6 +83,12 @@ namespace IMP.ViewModels
                 }
             }
         }
+        private bool IsValidTime(string time)
+        {
+            var regex = new Regex(@"^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
+            return regex.IsMatch(time);
+        }
+
 
         private string _selectedPipe = string.Empty;
         public string SelectedPipe
@@ -177,7 +184,17 @@ namespace IMP.ViewModels
         {
             if (string.IsNullOrWhiteSpace(SectionName) || string.IsNullOrWhiteSpace(StartTime) ||
                 string.IsNullOrWhiteSpace(Duration) || string.IsNullOrWhiteSpace(SelectedPipe))
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Wszystkie pola są wymagane.", "OK");
                 return;
+            }
+
+            // Sprawdź poprawność formatu czasu rozpoczęcia
+            if (!IsValidTime(StartTime))
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Podaj poprawny czas w formacie HH:mm.", "OK");
+                return;
+            }
 
             var newSection = new Section
             {
@@ -207,6 +224,7 @@ namespace IMP.ViewModels
             _selectedDays.Clear();
         }
 
+
         private async Task EditSection(string sectionId)
         {
             var section = Sections.FirstOrDefault(s => s.Id == sectionId);
@@ -216,22 +234,45 @@ namespace IMP.ViewModels
             if (string.IsNullOrWhiteSpace(newName)) return;
 
             string newStartTime = await Application.Current.MainPage.DisplayPromptAsync("Edytuj czas rozpoczęcia", "Podaj nowy czas rozpoczęcia (HH:mm):", initialValue: section.StartTime);
-            if (string.IsNullOrWhiteSpace(newStartTime)) return;
+            if (string.IsNullOrWhiteSpace(newStartTime))
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Czas rozpoczęcia jest wymagany.", "OK");
+                return;
+            }
+
+            // Walidacja formatu HH:mm
+            if (!IsValidTime(newStartTime))
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Podaj poprawny czas w formacie HH:mm.", "OK");
+                return;
+            }
 
             string newDuration = await Application.Current.MainPage.DisplayPromptAsync("Edytuj czas trwania", "Podaj nowy czas trwania (minuty):", initialValue: section.Duration.ToString());
-            if (string.IsNullOrWhiteSpace(newDuration)) return;
-
-            if (!int.TryParse(newDuration, out int duration))
+            if (string.IsNullOrWhiteSpace(newDuration))
             {
-                await Application.Current.MainPage.DisplayAlert("Błąd", "Czas trwania musi być liczbą całkowitą.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Czas trwania jest wymagany.", "OK");
+                return;
+            }
+
+            if (!int.TryParse(newDuration, out int duration) || duration <= 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Czas trwania musi być dodatnią liczbą całkowitą.", "OK");
                 return;
             }
 
             var newDays = await Application.Current.MainPage.DisplayPromptAsync("Edytuj dni", "Podaj nowe dni tygodnia oddzielone przecinkami (np. pn, wt, śr):", initialValue: section.SelectedDays);
-            if (string.IsNullOrWhiteSpace(newDays)) return;
+            if (string.IsNullOrWhiteSpace(newDays))
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Dni tygodnia są wymagane.", "OK");
+                return;
+            }
 
             string newPipe = await Application.Current.MainPage.DisplayPromptAsync("Edytuj rurę", "Podaj nowy typ rury (16mm, 25mm, 32mm):", initialValue: section.WateringType);
-            if (string.IsNullOrWhiteSpace(newPipe)) return;
+            if (string.IsNullOrWhiteSpace(newPipe))
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Typ rury jest wymagany.", "OK");
+                return;
+            }
 
             // Aktualizacja danych w sekcji
             section.Name = newName;
@@ -251,6 +292,7 @@ namespace IMP.ViewModels
                 }
             });
         }
+
         private async Task StopSection(string sectionId)
         {
             var section = Sections.FirstOrDefault(s => s.Id == sectionId);
